@@ -2,7 +2,7 @@
   "name": "mcp-server-mint",
   "version": "1.0.0",
   "description": "Launch Mint's on-device macOS storage intelligence as a local MCP server.",
-  "mcpName": "io.github.dzg-studio/mint",
+  "mcpName": "com.dzgapp/mint",
   "type": "module",
   "bin": {
     "mcp-server-mint": "bin/mcp-server-mint.js"
