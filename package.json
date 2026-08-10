@@ -1,0 +1,49 @@
+{
+  "name": "mcp-server-mint",
+  "version": "1.0.0",
+  "description": "Launch Mint's on-device macOS storage intelligence as a local MCP server.",
+  "mcpName": "io.github.yg1112/mint",
+  "type": "module",
+  "bin": {
+    "mcp-server-mint": "bin/mcp-server-mint.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check": "npm test && npm pack --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yg1112/mcp-server-mint.git"
+  },
+  "homepage": "https://mint.dzgapp.com/docs#cli-mcp",
+  "bugs": {
+    "url": "https://mint.dzgapp.com/contact"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "macos",
+    "storage",
+    "file-organizer",
+    "cleanup",
+    "undo"
+  ],
+  "license": "MIT",
+  "os": [
+    "darwin"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
