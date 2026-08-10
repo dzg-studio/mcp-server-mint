@@ -19,7 +19,7 @@ Install Mint and launch it once from Finder. Mint normally links `mint-cli` into
   "mcpServers": {
     "mint": {
       "command": "npx",
-      "args": ["-y", "mcp-server-mint@1.0.0"]
+      "args": ["-y", "@dzg-studio/mcp-server-mint@1.0.0"]
     }
   }
 }
