@@ -8,7 +8,7 @@ This npm package is a small open-source launcher. It locates the signed `mint-cl
 
 - macOS 14 Sonoma or later
 - Node.js 18 or later
-- The direct edition of Mint from https://mint.dzgapp.com
+- The direct edition of Mint from [mint.dzgapp.com](https://mint.dzgapp.com/?utm_source=GitHub&utm_medium=referral&utm_campaign=mcp_readme)
 
 Install Mint and launch it once from Finder. Mint normally links `mint-cli` into `/opt/homebrew/bin` or `/usr/local/bin`; the launcher can also use the binary inside `/Applications/Mint.app`.
 
