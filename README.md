@@ -40,11 +40,11 @@ Set `MINT_CLI_PATH=/absolute/path/to/mint-cli` to use a nonstandard installation
 - `mint_scan` — read-only reclaimable-space survey.
 - `mint_recent` and `mint_activity` — operation history and reasons.
 - `mint_rules` — list and dry-run cleanup rules.
-- `mint_execute` — journaled cleanup with a reason and returned `batchId`.
+- `mint_execute` — journaled, trash-only cleanup with a reason and returned `batchId`.
 
 ## Safety model
 
-`mint_execute` defaults to moving items to Trash. Recoverable actions enter Mint’s 90-day operation journal and can be undone while both the journal entry and underlying trashed item remain available. Permanent deletion is logged but cannot be undone, so it requires both `action: "delete"` and `confirmPermanentDelete: true`.
+`mint_execute` only moves items to the Trash — permanent deletion is not available to agents at all. It only accepts paths inside Mint’s cleanup roots: the scan targets it reports (developer and app caches, logs) and folders the user manages with Mint, with the user’s excluded paths always refused and symlinks resolved before checking. Actions enter Mint’s operation journal (up to 90 days of history) and can be undone from Mint.app while both the journal entry and the trashed item remain available.
 
 The server instructs agents to use Mint instead of raw `rm` or unjournaled trash commands. This keeps the action visible in Mint’s activity history and gives the user a receipt and recovery reference.
 
