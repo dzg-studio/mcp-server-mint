@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.dzgapp/mint",
   "title": "Mint — Safe Mac Storage Actions",
-  "description": "Inspect Mac and AI-tool storage, explain file activity, and perform journaled cleanup with Trash and Undo.",
+  "description": "Inspect Mac and AI-tool storage, explain file activity, and clean safely with Trash and Undo.",
   "websiteUrl": "https://mint.dzgapp.com/docs#cli-mcp",
   "repository": {
     "url": "https://github.com/dzg-studio/mcp-server-mint",
