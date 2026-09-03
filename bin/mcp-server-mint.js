@@ -6,10 +6,11 @@ import { resolveMintCLI } from "../lib/resolve-mint-cli.js";
 const cliPath = resolveMintCLI();
 
 if (!cliPath) {
-  console.error(`Mint CLI was not found.
+  console.error(`A trusted Mint CLI was not found.
 
 Install the direct edition from https://mint.dzgapp.com, launch Mint once from Finder,
-then try again. You can also set MINT_CLI_PATH to the full path of mint-cli.`);
+then try again. Only mint-cli signed by DZG Studio LLC is accepted. You can also
+set MINT_CLI_PATH to the full path of the official mint-cli.`);
   process.exit(1);
 }
 

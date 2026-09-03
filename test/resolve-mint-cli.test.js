@@ -7,6 +7,7 @@ test("prefers an explicit MINT_CLI_PATH", () => {
     environment: { MINT_CLI_PATH: "/custom/mint-cli" },
     exists: (path) => path === "/custom/mint-cli",
     realpath: (path) => `/resolved${path}`,
+    verify: () => true,
   });
 
   assert.equal(result, "/resolved/custom/mint-cli");
@@ -18,6 +19,7 @@ test("falls back to the app-bundled CLI", () => {
     environment: {},
     exists: (path) => path === bundled,
     realpath: (path) => path,
+    verify: () => true,
   });
 
   assert.equal(result, bundled);
@@ -28,6 +30,18 @@ test("returns undefined when Mint is not installed", () => {
     environment: {},
     exists: () => false,
     realpath: (path) => path,
+  });
+
+  assert.equal(result, undefined);
+});
+
+test("rejects a discovered CLI that does not have the expected signature", () => {
+  const bundled = "/Applications/Mint.app/Contents/Resources/mint-cli";
+  const result = resolveMintCLI({
+    environment: {},
+    exists: (path) => path === bundled,
+    realpath: (path) => path,
+    verify: () => false,
   });
 
   assert.equal(result, undefined);

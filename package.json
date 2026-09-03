@@ -1,7 +1,7 @@
 {
   "name": "@dzg-studio/mcp-server-mint",
-  "version": "1.0.0",
-  "description": "Launch Mint's on-device macOS storage intelligence as a local MCP server.",
+  "version": "1.0.1",
+  "description": "Launch Mint's on-device Mac and AI-tool storage intelligence as a local MCP server.",
   "mcpName": "com.dzgapp/mint",
   "type": "module",
   "bin": {
@@ -33,6 +33,7 @@
     "storage",
     "file-organizer",
     "cleanup",
+    "ai-agents",
     "undo"
   ],
   "license": "MIT",
