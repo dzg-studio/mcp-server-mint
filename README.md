@@ -1,6 +1,12 @@
 # Mint MCP Server
 
-Review Mac and AI-tool storage through Mint Direct, then carry out supported cleanup with a visible receipt and conditional recovery.
+**Smart Storage. For you and your agent.** Mint brings storage analysis, file-preserving optimization, reviewed cleanup, Auto Care, file organization and memory management into one Mac workflow.
+
+## The product method
+
+Mint distinguishes **Optimizable**, **Safe to clean**, **Yours** and **Keep**. Eligible duplicate copies can share storage while both files remain; supported Codex optimization preserves the pictures needed to continue a conversation. Identified caches and leftovers have different consequences from personal files, conversations and media. Required, active, protected or uncertain data stays unchanged. Auto Care continues supported routines within the scope and schedule the person enables while Mint is running.
+
+This launcher exposes the Direct edition’s supported agent interface, not every app feature. Agents can inspect storage and use the native MCP cleanup tools; conversation optimization, media removal, storage sharing, folder setup and memory management are reviewed in the app. Auto Care requires paid access, and availability differs by edition. See the [complete workflow and current boundaries](https://mintstorage.app/agent-safe-file-operations-mac/) and [canonical product facts](https://mintstorage.app/product-facts.json).
 
 This npm package is a small open-source launcher. It locates the signed `mint-cli` bundled with the direct edition of Mint, verifies the DZG Studio LLC code signature, and starts its local stdio MCP server. It does not contain Mint itself or send storage data to DZG Studio. Tool results are shared with the MCP client you connect; that client may use a remote AI provider.
 
