@@ -1,5 +1,7 @@
 # Mint MCP Server
 
+Smart disk and memory. For you and your agents.
+
 Mint is a Mac app that keeps disk and memory healthy for you and the AI agents
 working on your Mac. It gets space back, much of it without deleting a file,
 frees memory from apps you aren't using, knows what coding agents leave behind,
@@ -29,13 +31,13 @@ version probe runs, and must report `mcp.native-actions.v1`, `mcp.jobs.v1` and
 Most clients take this entry in their MCP configuration:
 
 ```json
-{"mcpServers":{"mint":{"command":"npx","args":["-y","@dzg-studio/mcp-server-mint@1.2.0"]}}}
+{"mcpServers":{"mint":{"command":"npx","args":["-y","@dzg-studio/mcp-server-mint@1.2.1"]}}}
 ```
 
-**Cursor:** [![Add Mint to Cursor](https://cursor.com/deeplink/mcp-install-dark.png)](https://cursor.com/install-mcp?name=mint&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBkemctc3R1ZGlvL21jcC1zZXJ2ZXItbWludEAxLjIuMCJdfQ%3D%3D)
+**Cursor:** [![Add Mint to Cursor](https://cursor.com/deeplink/mcp-install-dark.png)](https://cursor.com/install-mcp?name=mint&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBkemctc3R1ZGlvL21jcC1zZXJ2ZXItbWludEAxLjIuMSJdfQ%3D%3D)
 or add the entry above to `~/.cursor/mcp.json`.
 
-**Claude Code:** `claude mcp add mint -- npx -y @dzg-studio/mcp-server-mint@1.2.0`,
+**Claude Code:** `claude mcp add mint -- npx -y @dzg-studio/mcp-server-mint@1.2.1`,
 or install the [Mint for Mac plugin](https://github.com/dzg-studio/mint-claude-plugin).
 
 Without Node, any client can start Mint's server directly:

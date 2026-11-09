@@ -1,7 +1,7 @@
 {
   "name": "@dzg-studio/mcp-server-mint",
-  "version": "1.2.0",
-  "description": "Mint for Mac's MCP server: 58 tools that keep disk and memory healthy for you and the AI agents working on your Mac.",
+  "version": "1.2.1",
+  "description": "Smart disk and memory for you and your agents: Mint's local MCP server, 58 tools for Claude Code, Codex and Cursor.",
   "mcpName": "com.dzgapp/mint",
   "type": "module",
   "bin": {
@@ -28,16 +28,21 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "model-context-protocol",
-    "macos",
-    "storage",
     "ai-agents",
-    "disk",
-    "memory",
-    "file-organizer",
-    "undo",
+    "agents",
+    "claude-code",
+    "codex",
     "cursor",
-    "claude"
+    "macos",
+    "mac",
+    "disk-space",
+    "memory",
+    "ram",
+    "storage",
+    "worktrees",
+    "undo"
   ],
   "license": "MIT",
   "os": [
