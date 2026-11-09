@@ -1,19 +1,29 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.dzgapp/mint",
-  "title": "Mint — Safe Mac Storage Actions",
-  "description": "Inspect Mac and AI-tool storage, explain file activity, and clean safely with Trash and Undo.",
-  "websiteUrl": "https://mint.dzgapp.com/docs#cli-mcp",
+  "title": "Mint for Mac",
+  "description": "Keeps disk and memory healthy for you and the AI agents working on your Mac, through Mint.",
+  "websiteUrl": "https://mintstorage.app/agent-safe-file-operations-mac/",
+  "icons": [
+    {
+      "src": "https://mintstorage.app/apple-touch-icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "180x180"
+      ]
+    }
+  ],
   "repository": {
     "url": "https://github.com/dzg-studio/mcp-server-mint",
     "source": "github"
   },
-  "version": "1.0.1",
+  "version": "1.2.0",
   "packages": [
     {
       "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@dzg-studio/mcp-server-mint",
-      "version": "1.0.1",
+      "version": "1.2.0",
       "transport": {
         "type": "stdio"
       }

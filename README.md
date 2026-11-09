@@ -1,68 +1,113 @@
 # Mint MCP Server
 
-**Smart Storage. For you and your agent.** Mint brings storage analysis, file-preserving optimization, reviewed cleanup, Auto Care, file organization and memory management into one Mac workflow.
-
-## The product method
-
-Mint distinguishes **Optimizable**, **Safe to clean**, **Yours** and **Keep**. Eligible duplicate copies can share storage while both files remain; supported Codex optimization preserves the pictures needed to continue a conversation. Identified caches and leftovers have different consequences from personal files, conversations and media. Required, active, protected or uncertain data stays unchanged. Auto Care continues supported routines within the scope and schedule the person enables while Mint is running.
-
-This launcher exposes the Direct edition’s supported agent interface, not every app feature. Agents can inspect storage and use the native MCP cleanup tools; conversation optimization, media removal, storage sharing, folder setup and memory management are reviewed in the app. Auto Care requires paid access, and availability differs by edition. See the [complete workflow and current boundaries](https://mintstorage.app/agent-safe-file-operations-mac/) and [canonical product facts](https://mintstorage.app/product-facts.json).
-
-This npm package is a small open-source launcher. It locates the signed `mint-cli` bundled with the direct edition of Mint, verifies the DZG Studio LLC code signature, and starts its local stdio MCP server. It does not contain Mint itself or send storage data to DZG Studio. Tool results are shared with the MCP client you connect; that client may use a remote AI provider.
+Mint is a Mac app that keeps disk and memory healthy for you and the AI agents
+working on your Mac. It gets space back, much of it without deleting a file,
+frees memory from apps you aren't using, knows what coding agents leave behind,
+and can run on its own. This launcher connects your MCP client to Mint's own
+engine: it finds the signed Mint CLI on your Mac, checks that it is compatible
+and starts its local stdio server (`mint-cli mcp`). It does not include or
+install Mint, and there is no hosted MCP service. Tool results are shared with
+the AI client you connect.
 
 ## Requirements
 
-- macOS 14 Sonoma or later
-- Node.js 18 or later
-- Mint Direct from https://mintstorage.app/ (macOS 14 or later); keep the native app updated
+- macOS 14 or later and Node.js 18 or later.
+- Mint for Mac 1.2.0 or later, the edition from
+  [mintstorage.app/download](https://mintstorage.app/download/). Open it once
+  after installing. The Mac App Store and Setapp editions have no command-line
+  tool. Updating this launcher does not update Mint itself.
 
-Install Mint and launch it once from Finder. Mint normally links `mint-cli` into `/opt/homebrew/bin` or `/usr/local/bin`; the launcher can also use the binary inside `/Applications/Mint.app`.
+The launcher looks for `mint-cli` inside `/Applications/Mint.app` first, then
+`~/Applications/Mint.app`, `/opt/homebrew/bin` and `/usr/local/bin`.
+`MINT_CLI_PATH` can name another official copy. Every candidate must carry
+DZG Studio's Developer ID signature (team DRV5ZMT5U8) before its bounded
+version probe runs, and must report `mcp.native-actions.v1`, `mcp.jobs.v1` and
+`mcp.native-approval.v1`; an older Mint is refused with an update message.
 
-The npm launcher’s currently published version is 1.0.1. The native app supplies the tools, so installing the launcher alone does not update the scanner or execution engine. Setapp and Mac App Store editions do not include CLI/MCP. See [current product and edition facts](https://mintstorage.app/build-journey/how-mint-works/) and [Direct pricing](https://mintstorage.app/pricing/).
+## Set up your client
 
-## Configure an MCP client
+Most clients take this entry in their MCP configuration:
 
 ```json
-{
-  "mcpServers": {
-    "mint": {
-      "command": "npx",
-      "args": ["-y", "@dzg-studio/mcp-server-mint@1.0.1"]
-    }
-  }
-}
+{"mcpServers":{"mint":{"command":"npx","args":["-y","@dzg-studio/mcp-server-mint@1.2.0"]}}}
 ```
 
-Or, if `mint-cli` is already on `PATH`:
+**Cursor:** [![Add Mint to Cursor](https://cursor.com/deeplink/mcp-install-dark.png)](https://cursor.com/install-mcp?name=mint&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBkemctc3R1ZGlvL21jcC1zZXJ2ZXItbWludEAxLjIuMCJdfQ%3D%3D)
+or add the entry above to `~/.cursor/mcp.json`.
 
-```bash
-mint-cli mcp
+**Claude Code:** `claude mcp add mint -- npx -y @dzg-studio/mcp-server-mint@1.2.0`,
+or install the [Mint for Mac plugin](https://github.com/dzg-studio/mint-claude-plugin).
+
+Without Node, any client can start Mint's server directly:
+
+```json
+{"mcpServers":{"mint":{"command":"/Applications/Mint.app/Contents/Resources/mint-cli","args":["mcp"]}}}
 ```
 
-Set `MINT_CLI_PATH=/absolute/path/to/mint-cli` to use a nonstandard installation.
+The 58 tools cover these workflows:
 
-## Claude Desktop extension
+| Workflow | Tools |
+| --- | --- |
+| Compatibility and access | `mint_capabilities`, `mint_access` |
+| Saved storage observations | `mint_status`, `mint_why`, `mint_agents`, `mint_recent`, `mint_activity` |
+| Full native Disk | `mint_disk_scan`, `mint_disk_clean` |
+| Lossless optimization | `mint_storage_scan`, `mint_storage_optimize`; `mint_sharing_scan`, `mint_sharing_execute` for copies only |
+| AI conversations | `mint_conversations_scan/optimize/remove_media/delete`, `mint_archives_optimize` |
+| Claude conversation media | `mint_compression_scan`, `mint_compression_execute` |
+| Individual pictures | `mint_pictures_scan/keep/remove`, `mint_picture_preview`, `mint_picture_file_scan` |
+| Trash | `mint_trash_scan`, `mint_trash_remove` |
+| Memory | `mint_memory_scan`, `mint_memory_release` |
+| Apps | `mint_apps_list`, `mint_uninstall_scan`, `mint_uninstall_execute` |
+| Organize | `mint_organize_folders/add/remove/configure/preview/run` |
+| Auto Care | `mint_autocare_status/disk/folder/memory` |
+| Rules | `mint_rules`, `mint_rule_create/update/enable/disable/remove/scan` |
+| Handling permissions | `mint_handling_list`, `mint_handling_set` |
+| History and recovery | `mint_history`, `mint_undo_list`, `mint_undo` |
+| Progress and Stop | `mint_job_status`, `mint_job_cancel` |
+| Compatible limited cleanup | `mint_scan`, `mint_execute` |
 
-The `mcpb/` source in the public repository packages this launcher as a one-click Claude Desktop extension. Build it with `npx -y @anthropic-ai/mcpb pack mcpb/ mint-safe-mac-storage.mcpb`, then install the resulting file from **Settings → Extensions → Advanced Settings → Install Extension**.
+Discover `tools/list` for exact names and schemas. A scan is not consent.
+New mutating tools require `confirmed:true` for the exact user-approved action
+and selection. Permanent cleanup/deletion and irreversible media removal also
+require `confirmPermanent:true`. Advanced memory termination requires
+`allowAdvanced:true` and `confirmAdvanced:true`. Configuration and handling
+changes are separate operations requiring their own approval.
 
-## Tools
+Native scan sessions expire after 15 minutes and are consumed once. Use exact
+reviewed IDs. Protection, current identities, native access and macOS permission
+checks remain in effect. The App owns automation scheduling and owner-managed
+conversation actions. There is no shell-command tool or permission bypass.
 
-- `mint_status` — disk trends, recent activity, and managed-folder status.
-- `mint_why` — storage-growth attribution or operations involving a path.
-- `mint_scan` — read-only reclaimable-space survey.
-- `mint_agents` — read-only AI-tool storage from Mint's latest scan: usage by tool, conversation age and state, and compressible archived Codex media.
-- `mint_recent` and `mint_activity` — operation history and reasons.
-- `mint_rules` — list and dry-run cleanup rules.
-- `mint_execute` — journaled cleanup with a reason and returned `batchId`.
+Long operations return `jobId` by default. Poll `mint_job_status` for native
+progress and the final receipt. Stop is cooperative only where the native
+workflow supports it. A lost response means the outcome is unknown: consult
+the saved receipt/History before retrying. Never infer that a request changed
+nothing merely because its connection was lost.
 
-Tool schemas and supported operations depend on the installed native app. Read the current tool schema before execution; do not reuse an older example as authorization.
+Report actual partial failures and measurements. Processed or trashed bytes
+are not physical free space. Undo is available only where the native receipt
+and `mint_undo_list` offer it. Lossless compression preserves logical contents;
+conversation media removal permanently removes pictures while retaining text.
 
-## Safety model
+Legacy `mint_scan`/`mint_execute` retain their restricted Trash-only contract:
+`planId`, 1–100 unique `itemIds`, a reason, and optional `action:"trash"`.
+Only legacy rows marked `executable:true` are eligible there. Old clients do not
+gain permanent-delete authority by using their old execute tool.
 
-`mint_execute` can only move items to Trash, and only inside Mint’s cleanup roots or user-managed folders. Protected paths are refused, and Needs Review paths must be confirmed in Mint.app. Recoverable actions enter Mint’s 90-day operation journal and can be undone while both the journal entry and underlying trashed item remain available. Permanent deletion is not exposed to agents.
+**Usage data.** Mint (the app, not this launcher) records which tool your
+assistant called and the assistant's name (for example Claude Code or Cursor),
+whether it worked and how long it took, so we can see what helps and fix what
+breaks. It never records your files, file names, paths, prompts or arguments,
+or what came back. It follows the Share my usage statistics switch on Mint's
+About page; turn it off there and nothing is recorded.
 
-The server asks clients to use reviewed Mint operations. It cannot prevent an agent from invoking another deletion tool. A scan is not user consent to change files. Moving files to Trash on the same volume does not itself recover disk space; do not report moved bytes as physically reclaimed bytes.
+High-risk operations require the person to review and click confirmation inside
+Mint. Caller confirmation fields only request the operation; they cannot answer
+that dialog. Do not click it on the person's behalf or use CLI/shell workarounds.
+The review expires after two minutes. Cancel, close, timeout or changed targets
+refuse the request without starting its effects. Poll the job receipt; never
+retry automatically. This rule includes permanent and picture removal, app
+quit/termination, protection reduction and enabling standing automation.
 
-## License
-
-The launcher in this repository is MIT licensed. Mint is commercial software published by DZG Studio LLC under its own terms.
+The launcher is MIT licensed. Mint has separate product
+[terms](https://mintstorage.app/terms).

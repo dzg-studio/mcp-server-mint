@@ -6,11 +6,13 @@ import { resolveMintCLI } from "../lib/resolve-mint-cli.js";
 const cliPath = resolveMintCLI();
 
 if (!cliPath) {
-  console.error(`A trusted Mint CLI was not found.
+  console.error(`Mint 1.2.0 or later was not found on this Mac.
 
-Install the direct edition from https://mint.dzgapp.com, launch Mint once from Finder,
-then try again. Only mint-cli signed by DZG Studio LLC is accepted. You can also
-set MINT_CLI_PATH to the full path of the official mint-cli.`);
+Install Mint for Mac from https://mintstorage.app/download/ (the edition from the
+website; the Mac App Store and Setapp editions have no command-line tool), open it
+once, then restart this MCP connection. To use a copy elsewhere, set MINT_CLI_PATH
+to its mint-cli. The launcher runs only a mint-cli signed by DZG Studio LLC that
+reports mcp.native-actions.v1, mcp.jobs.v1 and mcp.native-approval.v1.`);
   process.exit(1);
 }
 

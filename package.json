@@ -1,7 +1,7 @@
 {
   "name": "@dzg-studio/mcp-server-mint",
-  "version": "1.0.1",
-  "description": "Launch Mint's on-device Mac and AI-tool storage intelligence as a local MCP server.",
+  "version": "1.2.0",
+  "description": "Mint for Mac's MCP server: 58 tools that keep disk and memory healthy for you and the AI agents working on your Mac.",
   "mcpName": "com.dzgapp/mint",
   "type": "module",
   "bin": {
@@ -22,19 +22,22 @@
     "type": "git",
     "url": "https://github.com/dzg-studio/mcp-server-mint.git"
   },
-  "homepage": "https://mint.dzgapp.com/docs#cli-mcp",
+  "homepage": "https://mintstorage.app/agent-safe-file-operations-mac/",
   "bugs": {
-    "url": "https://mint.dzgapp.com/contact"
+    "url": "https://mintstorage.app/contact/"
   },
   "keywords": [
     "mcp",
     "model-context-protocol",
     "macos",
     "storage",
-    "file-organizer",
-    "cleanup",
     "ai-agents",
-    "undo"
+    "disk",
+    "memory",
+    "file-organizer",
+    "undo",
+    "cursor",
+    "claude"
   ],
   "license": "MIT",
   "os": [
